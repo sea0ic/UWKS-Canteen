@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Canteen</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<div class="cat-floating">
+  <img src="https://i.pinimg.com/originals/45/85/34/458534c26985199f317c4839a689a3d8.gif" alt="Cute Cat" class="cat">
+  <div class="speech-bubble">Mau Makan apa nih?</div>
+</div>
+
+
+<body>
+  <header>
+    <h1>CANTEEN</h1>
+    <h2>UNIVERSITAS WIJAYA KUSUMA SURABAYA</h2>
+    <nav>
+      <button onclick="showSection('food')">Food</button>
+      <button onclick="showSection('drinks')">Drinks</button>
+      <button onclick="showSection('cart')">🛒</button>
+    </nav>
+
+  </header>
+
+  <!-- Food Section -->
+  <section id="food" class="active">
+    <h2>🍛 Food Menu</h2>
+    <div class="menu-grid" id="food-menu"></div>
+  </section>
+
+  <!-- Drinks Section -->
+  <section id="drinks">
+    <h2>🥤 Drinks Menu</h2>
+    <div class="menu-grid" id="drink-menu"></div>
+  </section>
+
+  <!-- Cart Section -->
+  <section id="cart">
+    <h2>🛒 Your Cart</h2>
+    <div class="cart-items" id="cart-items"></div>
+    <h3 id="total"></h3>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    <div class="message" id="checkout-message"></div>
+  </section>
+
+  <script src="script.js"></script>
+
+  <!-- Updated by Mansi on Nov 3 -->
+
+</body>
+</html>
