@@ -119,3 +119,36 @@
     const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     bubble.textContent = randomMsg;
   });
+function handleRegistration(event) {
+  event.preventDefault(); // Prevent page reload
+  
+  const form = document.getElementById('registration-form');
+  const messageDiv = document.getElementById('form-message');
+  
+  // Get form values
+  const formData = {
+    fullname: form.fullname.value,
+    studentId: form['student-id'].value,
+    email: form.email.value,
+    phone: form.phone.value,
+    faculty: form.faculty.value
+  };
+  
+  // Display success message
+  messageDiv.className = 'form-message success';
+  messageDiv.innerHTML = `
+    ✅ Registration Successful!<br>
+    <small>Welcome, ${formData.fullname}! You can now place orders.</small>
+  `;
+  
+  // Store user data (you could use localStorage here)
+  console.log('User registered:', formData);
+  
+  // Reset form
+  form.reset();
+  
+  // Optional: Auto-switch to food menu after 2 seconds
+  setTimeout(() => {
+    showSection('food');
+  }, 2000);
+}
