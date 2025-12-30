@@ -21,7 +21,8 @@
     <nav>
       <button onclick="showSection('food')">Food</button>
       <button onclick="showSection('drinks')">Drinks</button>
-      <button onclick="showSection('cart')">🛒</button>
+      <button onclick="showSection('cart')">Cart</button>
+      <button onclick="showSection('register')">Register</button>
     </nav>
 
   </header>
@@ -47,10 +48,212 @@
     <div class="message" id="checkout-message"></div>
   </section>
 
-  <script src="script.js"></script>
+  <!-- Registration Section -->
+<section id="register">
+  <h2>📝 Register Account</h2>
+  <div class="form-container">
+    <form id="registration-form" onsubmit="handleRegistration(event)">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="student-id">Student ID</label>
+        <input type="text" id="student-id" name="student-id" placeholder="e.g., 2024001234" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="08xxxxxxxxxx" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="faculty">Faculty</label>
+        <select id="faculty" name="faculty" required>
+          <option value="">Select Faculty</option>
+          <option value="engineering">Engineering</option>
+          <option value="medicine">Medicine</option>
+          <option value="economics">Economics</option>
+          <option value="law">Law</option>
+          <option value="arts">Arts & Humanities</option>
+          <option value="science">Science</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="submit-btn">Register Now</button>
+    </form>
+    <div class="form-message" id="form-message"></div>
+  </div>
+</section>
 
-  <!-- Updated by Mansi on Nov 3 -->
-  <!-- Updated by Mansi on Nov 3 -->
+  <script>
+    const foodItems = [
+      { name: "Chicken Burger", price: 25000, img: "https://i.pinimg.com/1200x/27/d5/23/27d523af3f6d343a789bf70c1f76e2f7.jpg" },
+      { name: "Nasi Goreng", price: 20000, img: "https://i.pinimg.com/1200x/ad/e0/b9/ade0b916b7df471431102d21c6db2214.jpg" },
+      { name: "Mie Goreng", price: 18000, img: "https://i.pinimg.com/1200x/d8/8e/b3/d88eb35eaa368c8a198c2aee47176709.jpg" },
+      { name: "Sate Ayam", price: 22000, img: "https://i.pinimg.com/736x/69/63/4f/69634f232b300bb47e15381e6639a0e1.jpg" },
+      { name: "French Fries", price: 20000, img: "https://i.pinimg.com/736x/0e/ef/14/0eef14ca02562ddf490f54f02cae57ef.jpg" },
+      { name: "Nasi Padang", price: 25000, img: "https://i.pinimg.com/736x/45/1c/3a/451c3a2537616f5d5d06750972b5458e.jpg" },
+      { name: "Tahu Tek", price: 12000, img: "https://i.pinimg.com/736x/1f/7d/0b/1f7d0bda30cd9c7646c374bb20f33c2a.jpg" },
+      { name: "Soto Ayam", price: 15000, img: "https://glebekitchen.com/wp-content/uploads/2019/11/sotoayamtopbowl.jpg" },
+      { name: "Bakso", price: 17000, img: "https://asset.kompas.com/crops/x5WnTdKwXPw7ut_tZ0aqZ3hA5C4=/3x0:700x465/750x500/data/photo/2022/05/02/626f38785e814.jpg" },
+      { name: "Ayam Geprek", price: 12000, img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png" },
+      { name: "Salad", price: 20000, img: "https://www.paleorunningmomma.com/wp-content/uploads/2019/05/veggie-salad-8.jpg" },
+      { name: "Pizza", price: 22000, img: "https://www.hunts.com/sites/g/files/qyyrlu211/files/uploadedImages/img_6934_48664.jpg" },
+      { name: "Nasi Kuning", price: 18000, img: "https://icone-inc.org/wp-content/uploads/2020/10/Nasi-Kuning-Ayam-Goreng-micita-768x849.jpg" }
+    ];
+
+    const drinkItems = [
+      { name: "Iced Coffee", price: 15000, img: "https://cdn.loveandlemons.com/wp-content/uploads/2025/05/how-to-make-iced-coffee-at-home.jpg" },
+      { name: "Lemon Tea", price: 12000, img: "https://i.pinimg.com/736x/95/67/1b/95671b9bb292a423175d3c39fa87d1ab.jpg" },
+      { name: "Mineral Water", price: 8000, img: "https://i.pinimg.com/1200x/99/92/4d/99924da79293b1e21e3beb5842999fa2.jpg" },
+      { name: "Smoothie", price: 16000, img: "https://i.pinimg.com/736x/d3/32/d9/d332d9179ff7c342b1afda7b68502a36.jpg" },
+      { name: "Chocolate Milkshake", price: 18000, img: "https://i.pinimg.com/1200x/d9/30/5e/d9305edce30213c10c944c6fb386d40b.jpg" },
+      { name: "Avocado Juice", price: 17000, img: "https://i.pinimg.com/736x/45/58/4f/45584fc3f3753fc8c74dbb4fc66452e7.jpg" },
+      { name: "Mango Juice", price: 15000, img: "https://i.pinimg.com/736x/2d/2b/e5/2d2be5b4042ddea128e748a65bebf459.jpg" },
+      { name: "Orange Juice", price: 14000, img: "https://i.pinimg.com/1200x/b5/15/19/b5151985c607f0f2c7695b46d5d95181.jpg" },
+      { name: "Coconut Water", price: 13000, img: "https://i.pinimg.com/736x/a6/6a/66/a66a663865787066e6f9058281de6333.jpg" },
+      { name: "Green Tea", price: 12000, img: "https://i.pinimg.com/736x/07/e6/61/07e661d9c5e58d43b513adf5bacec485.jpg" },
+      { name: "Hot Coffee", price: 13000, img: "https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg" },
+      { name: "Milk Tea", price: 15000, img: "https://i.pinimg.com/1200x/52/6b/a9/526ba9a4011242d294107a19a2c53c86.jpg" },
+      { name: "Strawberry Milk", price: 16000, img: "https://i.pinimg.com/1200x/d4/84/20/d4842038272fca18482f8d8805a88b99.jpg" },
+      { name: "Hot Chocolate", price: 17000, img: "https://i.pinimg.com/736x/42/6c/7c/426c7cf03cd06e36dae8c20e04b646e3.jpg" }
+    ];
+
+    let cart = [];
+
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function renderMenu(items, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("item");
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>Rp ${item.price.toLocaleString()}</p>
+          <button class="add-btn" onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addToCart(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      alert(`${name} added to cart!`);
+    }
+
+    function renderCart() {
+      const cartContainer = document.getElementById("cart-items");
+      const totalEl = document.getElementById("total");
+      cartContainer.innerHTML = "";
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <span>${item.name} x${item.qty}</span>
+          <span>Rp ${(item.price * item.qty).toLocaleString()}</span>
+        `;
+        cartContainer.appendChild(div);
+      });
+
+      totalEl.innerText = `Total: Rp ${total.toLocaleString()}`;
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      document.getElementById("checkout-message").innerText =
+        "✅ Order placed! Please pay at the counter.";
+      cart = [];
+      document.getElementById("cart-items").innerHTML = "";
+      document.getElementById("total").innerText = "";
+    }
+
+    // Initialize menus
+    renderMenu(foodItems, "food-menu");
+    renderMenu(drinkItems, "drink-menu");
+
+    // Show cart updates when section is opened
+    document.querySelector("button[onclick=\"showSection('cart')\"]")
+      .addEventListener("click", renderCart);
+
+
+  const cat = document.querySelector('.cat-floating .cat');
+  const bubble = document.querySelector('.cat-floating .speech-bubble');
+
+  const messages = [
+    "meow~ lapar ya?",
+    "udh coba chicken burger blm?",
+    "Hot coffee enak lho! ☕",
+    "eh aku juga mau makan nih! 🍽️",
+  ];
+
+  cat.addEventListener('click', () => {
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    bubble.textContent = randomMsg;
+  });
+
+
+
+  // Handle Registration Form
+function handleRegistration(event) {
+  event.preventDefault(); // Prevent page reload
+  
+  const form = document.getElementById('registration-form');
+  const messageDiv = document.getElementById('form-message');
+  
+  // Get form values
+  const formData = {
+    fullname: form.fullname.value,
+    studentId: form['student-id'].value,
+    email: form.email.value,
+    phone: form.phone.value,
+    faculty: form.faculty.value
+  };
+  
+  // Display success message
+  messageDiv.className = 'form-message success';
+  messageDiv.innerHTML = `
+    ✅ Registration Successful!<br>
+    <small>Welcome, ${formData.fullname}! You can now place orders.</small>
+  `;
+  
+  // Store user data (you could use localStorage here)
+  console.log('User registered:', formData);
+  
+  // Reset form
+  form.reset();
+  
+  // Optional: Auto-switch to food menu after 2 seconds
+  setTimeout(() => {
+    showSection('food');
+  }, 2000);
+}
+
+  </script>
 
 </body>
 </html>
+
